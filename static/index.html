@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>De voz a texto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="brand-block">
+      <p class="brand">De voz a texto</p>
+      <h1>Sube un audio y obtén la transcripción</h1>
+      <p class="lede">Español por defecto. Funciona en local con Whisper; OpenAI si hay clave.</p>
+    </header>
+
+    <section class="upload-panel" aria-labelledby="upload-title">
+      <h2 id="upload-title" class="sr-only">Subir audio</h2>
+      <label class="dropzone" id="dropzone" for="file-input">
+        <input id="file-input" type="file" accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac,.webm,.aac,.wma,.opus,.aiff" />
+        <span class="drop-title">Arrastra el audio aquí o elige un archivo</span>
+        <span class="drop-hint">mp3, wav, m4a, ogg, flac, webm y más</span>
+      </label>
+
+      <div class="controls">
+        <label class="field">
+          <span>Idioma</span>
+          <select id="language">
+            <option value="es" selected>Español</option>
+            <option value="en">Inglés</option>
+            <option value="pt">Portugués</option>
+            <option value="fr">Francés</option>
+            <option value="auto">Detectar automáticamente</option>
+          </select>
+        </label>
+        <button type="button" id="btn-transcribe" class="btn primary" disabled>Transcribir</button>
+      </div>
+
+      <p class="file-name" id="file-name" hidden></p>
+      <p class="engine" id="engine-info">Cargando motor…</p>
+    </section>
+
+    <section class="progress-panel" id="progress-panel" hidden>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="bar-fill" id="bar-fill"></div>
+      </div>
+      <p class="progress-msg" id="progress-msg">Preparando…</p>
+    </section>
+
+    <section class="result-panel" id="result-panel" hidden>
+      <div class="result-head">
+        <h2>Transcripción</h2>
+        <div class="result-actions">
+          <button type="button" id="btn-copy" class="btn ghost">Copiar</button>
+          <button type="button" id="btn-download" class="btn ghost">Descargar .txt</button>
+        </div>
+      </div>
+      <textarea id="transcript" rows="12" spellcheck="true" placeholder="El texto aparecerá aquí…"></textarea>
+      <p class="toast" id="toast" hidden></p>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
